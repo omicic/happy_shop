@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
+
+:root {
+    --fontFamily: 'Roboto', sans-serif;
+    --orange: #ef7e22;
+    --blue: #2080be;
+    --green: #bad232;
+    --text: #595a5a;
+    --white: #fff;
+    --darkBlue: #062d49;
+    --fontSize: 16px;
+    --transition: 0.3s ease-in-out;
+}
+
+/* basic styles */
+body {
+    font-family: var(--fontFamily);
+    font-size: var(--fontSize);
+    color: var(--text);
+}
+
+#single {
+    display: none;
+    width: 80%;
+    margin: auto;
+}
+
+#single input {
+    width: 30%;
+}
+
+#single article .image {
+    flex: 0 0 40%
+}
+
+#single article .opis {
+    flex: 0 0 60%
+}
+
+.checked {
+    color: orange;
+}
+
+a:hover {
+    transition: var(--transition);
+}
+
+/* topbar */
+.topbar {
+    background: var(--blue);
+    text-transform: uppercase;
+}
+
+.topbar a {
+    color: var(--white);
+    font-weight: 300;
+    font-size: .8rem;
+}
+
+/* nav */
+.navbar-brand img {
+    width: 100px;
+}
+
+.navbar .nav-link {
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.navbar-nav .fa-shopping-cart {
+    color: tomato;
+    font-size: 2.2rem;
+}
+
+.navbar-nav #shop {
+    margin-left: 20px;
+}
+
+.navbar-nav #shop a {
+    padding-left: 5px;
+
+}
+
+.navbar-nav #shop p {
+    color: cadetblue;
+    font-weight: bold;
+}
+
+
+.navbar-nav .navbar-nav .fa-shopping-cart p {}
+
+/* slider */
+.carousel-caption {
+    bottom: 40%;
+}
+
+.carousel-caption h2 {
+    font-weight: 500;
+}
+
+/* popular */
+.popular a {
+    text-decoration: none;
+    color: var(--text);
+}
+
+.popular .holder {
+    overflow: hidden;
+}
+
+.popular img {
+    transition: var(--transition);
+}
+
+.popular a:hover {
+    text-decoration: none;
+    background: var(--blue);
+    color: var(--white);
+}
+
+.popular a:hover img {
+    transform: scale(1.1);
+}
+
+.popular h5 {
+    margin-bottom: 0;
+    padding: 10px 0;
+    background-color: #2080be;
+    color: white;
+}
+
+/* new products */
+.allProducts .nav-item {
+    border: 1px solid var(--text);
+    margin: 0 5px;
+}
+
+.allProducts .nav-item:hover {
+    border: 1px solid var(--blue);
+    background: var(--blue);
+}
+
+.allProducts .nav-item:hover a {
+    color: var(--white);
+}
+
+.allProducts .nav-item a {
+    color: var(--text);
+}
+
+.allProducts .nav-item a i {
+    margin-right: 10px;
+}
+
+.allProducts .slider .text {
+    background: #fdfdfd;
+    padding: 30px 0;
+    border-top: 1px solid #dee2e6
+}
+
+.allProducts .slider a {
+    text-decoration: none;
+    color: var(--text);
+}
+
+.allProducts .stars i {
+    color: #dddddd;
+}
+
+.allProducts .price span:first-child {
+    color: #999999;
+    /* text-decoration: line-through; */
+}
+
+.allProducts .price span:last-child {
+    color: var(--blue);
+    font-weight: 700;
+}
+
+#orderForm form {
+    width: 700px;
+    margin: auto;
+    background: rgb(241, 248, 226);
+}
+
+#single #price {
+    font-size: 2rem;
+    color: var(--blue);
+    font-weight: 500;
+}
+
+#single #price+span {
+    color: var(--blue);
+}
