@@ -5,6 +5,8 @@ let order = document.querySelector('#order')
 let allProducts = document.querySelector('.allProducts')
 let showProducts = allProducts.querySelector('#products')
 let formOrder = document.querySelector('#orderForm')
+let registrationForm = document.querySelector('#registration')
+
 
 //singlePage
 let singlelink = document.querySelector('#singlelink')
@@ -18,7 +20,7 @@ let indexCustomer = 0;
 let edit = false
 
 popularProducts()
-showAllProducts("all")
+showAllProducts("All")
 
 function popularProducts() {
     let text = ""
@@ -40,13 +42,16 @@ function popularProducts() {
 }
 
 function showAllProducts(filter) {
+
+    console.log(filter)
+
     let text = ``
-    if (filter !== "All") {
+    if (filter != "All") {
         text += `<div class="d-flex flex-row justify-content-center align-items-center flex-wrap "> `
     }
 
     products.forEach(element => {
-        if (filter === "All") {
+        if (filter == "All") {
             text += addItem(element)
         }
 
@@ -55,13 +60,13 @@ function showAllProducts(filter) {
             <div class="owl-item cloned mb-3" style="width: 277.5px; margin-right: 10px;">`
             text += addItem(element)
             text += `</div>`
-        }
+        } 
 
     });
 
-    if (filter !== "All") {
+    if (filter != "All") {
         text += `</div>`
-    }
+    } 
 
         function addItem(element) {
             let text = `
@@ -88,7 +93,7 @@ function showAllProducts(filter) {
 
 function showSinglePage(id) {
 
-    setDisplay("none", "block", "none", "none", "none");
+    setDisplay("none", "block", "none", "none", "none", "none");
 
     let product = {}
 
@@ -194,7 +199,7 @@ function ubaciUkorupu() {
         edit = false
         orderForm()
     } else {
-        setDisplay("block", "none", "none", "block", "none")
+        setDisplay("block", "none", "none", "block", "none","none")
     }
 
 }
@@ -302,7 +307,7 @@ function orderForm() {
     formOrder.innerHTML = text;
 
     setListenerForEditDeleteBtn()
-    setDisplay("none", "none", "none", "none", "block")
+    setDisplay("none", "none", "none", "none", "block", "none")
 
     let buttonOrder = document.querySelector('#orderbutton')
     buttonOrder.addEventListener('click', sendOrder)
@@ -379,17 +384,66 @@ function setListenerForEditDeleteBtn() {
 
 }
 
-function setDisplay(maindisplay, singledisplay, orderdisplay, allProductsDisplay, orderForm) {
+function setDisplay(maindisplay, singledisplay, orderdisplay, allProductsDisplay, orderForm, registrationForm) {
     main.style.display = maindisplay
     single.style.display = singledisplay
     order.style.display = orderdisplay
     allProducts.style.display = allProductsDisplay
     formOrder.style.display = orderForm
+    registrationForm.style.display =registrationForm
 }
 
 
 
+function registration(){
+ let text = ''
 
+    text += `
+    
+    <form class="p-5">
+    <h3 class="mb-5 text-center">Registration form</h3>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <input type="text" class="form-control" id="customerName" placeholder="Name" value="">
+      </div>
+      <div class="form-group col-md-6">
+        <input type="text" class="form-control" id="lastName" placeholder="Last name" value="">
+      </div>
+    </div>
+    <div class="form-group">
+      <input type="email" class="form-control" id="email" placeholder="Email" value="">
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" id="inputAddress" placeholder="Address" value="">
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <input type="text" class="form-control" id="inputCity" placeholder="City" value="">
+      </div>
+      <div class="form-group col-md-4">
+        <select id="inputState" class="form-control">
+          <option selected>Choose...</option>
+          <option>Serbia</option>
+          <option>Hungary</option>
+        </select>
+      </div>
+      <div class="form-group col-md-2">
+        <input type="text" class="form-control" id="inputZip" placeholder="Zip" value="">
+      </div>
+    </div>
+    <button id="orderbutton" type="button" class="btn btn-warning px-5 mt-3">Register</button>
+  </form>`
+
+    registrationForm.innerHTML = text;
+
+    setDisplay("none","none","none","none","none", "block")
+
+
+}
+
+function login(){
+    
+}
 
 
 

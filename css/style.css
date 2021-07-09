@@ -57,6 +57,33 @@ a:hover {
     font-size: .8rem;
 }
 
+.topbar .registration {
+    font-weight: 400;
+    color: rgb(116, 121, 168);
+    letter-spacing: 1px;
+    background-color: rgb(212, 223, 245);
+    border-top-left-radius: 10px;
+    transition: var(--transition);
+}
+
+.topbar .login {
+    font-weight: 400;
+    border-bottom-right-radius: 10px;
+    color: white;
+    background-color: rgb(179, 105, 95);
+    transition: var(--transition);
+}
+
+.topbar .login:hover {
+    background-color: white;
+    color: rgb(179, 105, 95);
+}
+
+.topbar .registration:hover {
+    color: rgb(212, 223, 245);
+    background-color: rgb(116, 121, 168);
+}
+
 /* nav */
 .navbar-brand img {
     width: 100px;
