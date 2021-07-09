@@ -18,7 +18,7 @@ let indexCustomer = 0;
 let edit = false
 
 popularProducts()
-showAllProducts()
+showAllProducts("all")
 
 function popularProducts() {
     let text = ""
@@ -35,29 +35,52 @@ function popularProducts() {
        `
     });
     text += "</article>"
+
     popularArticles.innerHTML = text;
 }
 
-function showAllProducts() {
+function showAllProducts(filter) {
     let text = ``
+    if (filter !== "All") {
+        text += `<div class="d-flex flex-row justify-content-center align-items-center flex-wrap "> `
+    }
 
     products.forEach(element => {
-        text += `
-            <a class="item border d-block" href="javascript:showSinglePage(${element.id})">
-            <div class="holder">
-                <img src="img/${element.image}" alt="">
-            </div>
-            <div class="text">
-                <h5>${element.name}</h5>`
-        text += createStarsForProduct(element, "allProducts")
+        if (filter === "All") {
+            text += addItem(element)
+        }
 
-        text += `  
-                <div class="price">
-                    <span>${element.price}</span><span>&nbsp;EUR</span>
-                </div>
-            </div>
-            </a>`
+        if (filter === element.category) {
+            text += `
+            <div class="owl-item cloned mb-3" style="width: 277.5px; margin-right: 10px;">`
+            text += addItem(element)
+            text += `</div>`
+        }
+
     });
+
+    if (filter !== "All") {
+        text += `</div>`
+    }
+
+        function addItem(element) {
+            let text = `
+                <a class="item border d-block" href="javascript:showSinglePage(${element.id})">
+                    <div class="holder">
+                        <img src="img/${element.image}" alt="">
+                    </div>
+                    <div class="text">
+                        <h5>${element.name}</h5>`
+                    text += createStarsForProduct(element, "allProducts")
+
+                    text += `  
+                        <div class="price">
+                            <span>${element.price}</span><span>&nbsp;EUR</span>
+                        </div>
+                    </div>
+                </a>`
+            return text
+        }
 
     showProducts.innerHTML = text
 }
@@ -68,8 +91,8 @@ function showSinglePage(id) {
     setDisplay("none", "block", "none", "none", "none");
 
     let product = {}
-    
-    products.forEach((element,index) => {
+
+    products.forEach((element, index) => {
         console.log(element.id)
         if (element.id == id) {
             product = element
@@ -97,24 +120,24 @@ function showSinglePage(id) {
                      <div class="d-flex flex-row justify-content-start">
                             <input type="text" class="quantity form-control"`
 
-                            basket.forEach(element => {
-                                if(element.id == product.id){
-                                    text += `
+    basket.forEach(element => {
+        if (element.id == product.id) {
+            text += `
                                          value="${element.quantity}"
                                     `
-                                }
-                            });
-                            text += `
+        }
+    });
+    text += `
                                  width="50%" placeholder="Quantity of product" name="quantity">   
                             <button id="order" data-id="${product.id}" productname="${product.name}" class="btn btn-primary ml-2">`
-                            
-                            if(edit){
-                                text+='Izmeni'
-                            }else {       
-                                text+='Naruci'
-                            }
 
-                            text += `</button>
+    if (edit) {
+        text += 'Izmeni'
+    } else {
+        text += 'Naruci'
+    }
+
+    text += `</button>
                     </div>
                     
                 </div>              
@@ -124,56 +147,56 @@ function showSinglePage(id) {
     single.innerHTML = text;
     let order = document.querySelector('#order')
     order.addEventListener('click', ubaciUkorupu);
-    
+
     //add listener on stars rating                        
     let starssingle = document.querySelectorAll(`#starsingle`)
     starssingle.forEach(star => {
         star.addEventListener('click', oceni)
     });
- 
+
 }
 
-function oceni(){
+function oceni() {
 
     alert("Samo registrovani korisnici imaju pravo da ocene proizvod.")
- 
-   /*  console.log(this)
-    if(this.classList.contains('checked')){
-        this.classList.remove('checked')
-    } else {
-        this.classList.add('checked')
-    } */
 
-} 
+    /*  console.log(this)
+     if(this.classList.contains('checked')){
+         this.classList.remove('checked')
+     } else {
+         this.classList.add('checked')
+     } */
+
+}
 
 function ubaciUkorupu() {
-if(edit){
-    basket.forEach(element => {
-        if(element.id == this.getAttribute('data-id')){
-            element.quantity = document.querySelector('.quantity').value
+    if (edit) {
+        basket.forEach(element => {
+            if (element.id == this.getAttribute('data-id')) {
+                element.quantity = document.querySelector('.quantity').value
+            }
+        });
+    } else {
+        let order = {
+            id: this.getAttribute("data-id"),
+            nameProduct: this.getAttribute("productname"),
+            iznos: document.querySelector('#price').innerHTML,
+            quantity: document.querySelector('.quantity').value
         }
-    });
-}else{
-    let order = {
-        id: this.getAttribute("data-id"),
-        nameProduct: this.getAttribute("productname"),
-        iznos: document.querySelector('#price').innerHTML,
-        quantity: document.querySelector('.quantity').value
+        basket.push(order)
     }
-    basket.push(order)
-}
- 
+
     shop.innerHTML = basket.length
 
     ukupanIznosPorudzbe()
 
-     if(edit){
+    if (edit) {
         edit = false
-         orderForm()
-    }else{
+        orderForm()
+    } else {
         setDisplay("block", "none", "none", "block", "none")
-    } 
-   
+    }
+
 }
 
 function ukupanIznosPorudzbe() {
@@ -226,14 +249,14 @@ function orderForm() {
             <th scope="row"></th>
             <td></td>
             <td>Ukupno: </td>`
-            if(ukupaniznos>0){
-                text += `<td>${ukupaniznos}&nbsp;<span>EUR</span></td>`
-            } else {
-                text += `<td>0.00&nbsp;<span>EUR</span></td>`
-            }
-            
-           
-     text += `</tr>`
+    if (ukupaniznos > 0) {
+        text += `<td>${ukupaniznos}&nbsp;<span>EUR</span></td>`
+    } else {
+        text += `<td>0.00&nbsp;<span>EUR</span></td>`
+    }
+
+
+    text += `</tr>`
 
     text += `    
         </tbody>
@@ -297,8 +320,8 @@ function deleteOrder() {
     orderForm()
 }
 
-function editOrder(){
-    edit=true
+function editOrder() {
+    edit = true
     showSinglePage(this.getAttribute('data-id'))
 }
 
@@ -317,7 +340,7 @@ function sendOrder() {
     }
 
     customers.push(customer)
-    location.reload(); 
+    location.reload();
     alert("Thank you! Your order is received")
 }
 
@@ -325,22 +348,22 @@ function createStarsForProduct(product, page) {
     let i = 0;
     let text = '';
     while (i < product.stars) {
-        if(page==="allProducts"){
+        if (page === "allProducts") {
             text += `<span id="starall" data-id="${product.id}" class="fa fa-star checked"></span>`
-        }else{
+        } else {
             text += `<span id="starsingle" data-id="${product.id}" class="fa fa-star checked"></span>`
         }
-       
+
         i++
     }
 
     while (i < 5) {
-        if(page==="allProducts"){
+        if (page === "allProducts") {
             text += `<span id="starall" data-id="${product.id}" class="fa fa-star"></span>`
-        }else{
+        } else {
             text += `<span id="starsingle" data-id="${product.id}" class="fa fa-star"></span>`
         }
-  
+
         i++
     }
     return text
@@ -363,6 +386,7 @@ function setDisplay(maindisplay, singledisplay, orderdisplay, allProductsDisplay
     allProducts.style.display = allProductsDisplay
     formOrder.style.display = orderForm
 }
+
 
 
 
